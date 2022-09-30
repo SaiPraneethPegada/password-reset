@@ -3,12 +3,12 @@ import { url } from "../App";
 import { useFormik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -26,6 +26,7 @@ const initialValues = {
 };
 
 export default function Signup() {
+    const navigate = useNavigate();
     const validate = (values) => {
         const errors = {};
 
@@ -169,9 +170,12 @@ export default function Signup() {
 
                         <Grid container>
                             <Grid item>
-                                <Link href="/login" variant="body2">
+                                <button
+                                    className="direct"
+                                    onClick={() => navigate("/login")}
+                                    variant="body2">
                                     {"Already have an account? Sign In"}
-                                </Link>
+                                </button>
                             </Grid>
                         </Grid>
                     </Box>

@@ -1,1 +1,11 @@
+.direct:hover {
+    border: none;
+    color: #0d6efd;
+    background-color: white;
+    text-decoration: underline;
+}
 
+.direct {
+    border: none;
+    background-color: white;
+}
