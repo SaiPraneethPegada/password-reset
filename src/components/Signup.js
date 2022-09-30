@@ -105,7 +105,6 @@ export default function Signup() {
                             id="userName"
                             label="User Name"
                             name="userName"
-                            autoFocus
                             error={
                                 formik.touched.userName &&
                                 Boolean(formik.errors.userName)
