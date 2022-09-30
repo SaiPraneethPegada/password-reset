@@ -6,7 +6,7 @@ import Signup from "./components/Signup";
 import Activate from "./components/Activate";
 import Forgot from "./components/Forgot";
 import Reset from "./components/Reset";
-export const url = "https://password--reset--backend.herokuapp.com/";
+export const url = "https://password--reset--backend.herokuapp.com";
 
 function App() {
     return (
