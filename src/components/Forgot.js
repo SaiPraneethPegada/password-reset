@@ -21,11 +21,11 @@ export default function Forgot() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email);
+    // console.log(email);
 
     let res = await axios.post(`${url}/auth/forgot`, { email: email });
 
-    console.log(res.data);
+    // console.log(res.data);
 
     if (res.data.statusCode === 200) {
       toast.success(res.data.message);

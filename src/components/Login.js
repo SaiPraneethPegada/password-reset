@@ -27,13 +27,13 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(email, password);
+        // console.log(email, password);
 
         let res = await axios.post(`${url}/auth/signin`, {
             email,
             password,
         });
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.statusCode === 200) {
             sessionStorage.setItem("token", res.data.token);
             navigate("/home");

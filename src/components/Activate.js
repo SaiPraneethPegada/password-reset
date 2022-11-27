@@ -27,16 +27,16 @@ export default function Activate() {
                     });
                     if (res.data.statusCode === 200) {
                         toast.success(res.data.message);
-                        console.log(res.data.message);
+                        // console.log(res.data.message);
                     } else {
                         alert(res.data.message);
                         navigate("/signup");
-                        console.log("msg", res.data.message);
+                        // console.log("msg", res.data.message);
                     }
                 } catch (err) {
                     alert(err.response.data.message);
                     navigate("/signup");
-                    console.log("Msg", err);
+                    // console.log("Msg", err);
                 }
             };
             activateUser();

@@ -24,7 +24,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(password, cf_password);
+    // console.log(password, cf_password);
 
     if(password.length < 8) {
       toast.error("Password must be at least 8 characters");
