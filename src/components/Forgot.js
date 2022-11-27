@@ -13,25 +13,30 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Spinner from "react-bootstrap/Spinner";
 
 const theme = createTheme();
 
 export default function Forgot() {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     // console.log(email);
-
-    let res = await axios.post(`${url}/auth/forgot`, { email: email });
-
-    // console.log(res.data);
-
-    if (res.data.statusCode === 200) {
-      toast.success(res.data.message);
+    if (email) {
+      let res = await axios.post(`${url}/auth/forgot`, { email: email });
+      // console.log(res.data);
+      if (res.data.statusCode === 200) {
+        toast.success(res.data.message);
+      } else {
+        toast.error(res.data.message);
+      }
     } else {
-      toast.error(res.data.message);
+      toast.error("Please enter registered email ID");
     }
+    setLoading(false);
   };
 
   return (
@@ -45,7 +50,8 @@ export default function Forgot() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-          }}>
+          }}
+        >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -56,7 +62,8 @@ export default function Forgot() {
             component="form"
             onSubmit={handleSubmit}
             noValidate
-            sx={{ mt: 1 }}>
+            sx={{ mt: 1 }}
+          >
             <TextField
               margin="normal"
               required
@@ -73,8 +80,13 @@ export default function Forgot() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}>
-              Submit
+              sx={{ mt: 3, mb: 2 }}
+            >
+              {loading ? (
+                <Spinner animation="border" variant="light" />
+              ) : (
+                "Submit"
+              )}
             </Button>
           </Box>
         </Box>

@@ -11,6 +11,7 @@ import axios from "axios";
 import { url } from "../App";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import Spinner from "react-bootstrap/Spinner";
 import "react-toastify/dist/ReactToastify.css";
 
 const theme = createTheme();
@@ -18,6 +19,7 @@ const theme = createTheme();
 export default function Login() {
   const [password, setPassword] = useState("");
   const [cf_password, setCf_password] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const { token } = useParams();
   const navigate = useNavigate();
@@ -25,26 +27,31 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(password, cf_password);
-
-    if(password.length < 8) {
-      toast.error("Password must be at least 8 characters");
-    }
-
-    if (password === cf_password && password !== "" && cf_password !== "") {
-      let res = await axios.post(
-        `${url}/auth/reset`,
-        { password: password },
-        { headers: { Authorization: token } }
-      );
-      if (res.data.statusCode === 200) {
-        navigate("/login");
-        alert("Password changed successfully!!");
+    setLoading(true);
+    if (password !== "" && cf_password !== "") {
+      if (password === cf_password) {
+        if (password.length > 8) {
+          let res = await axios.post(
+            `${url}/auth/reset`,
+            { password: password },
+            { headers: { Authorization: token } }
+          );
+          if (res.data.statusCode === 200) {
+            navigate("/login");
+            alert("Password changed successfully!!");
+          } else {
+            toast.error(res.data.message);
+          }
+        } else {
+          toast.error("Password must be at least 8 characters");
+        }
       } else {
-        toast.error(res.data.message);
+        toast.error("Both Passwords should match");
       }
     } else {
-      toast.error("Both Passwords should match");
+      toast.error("Passwords should not be empty");
     }
+    setLoading(false);
   };
 
   return (
@@ -59,7 +66,8 @@ export default function Login() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-            }}>
+            }}
+          >
             <Typography component="h1" variant="h5">
               Reset Password!!
             </Typography>
@@ -67,7 +75,8 @@ export default function Login() {
               component="form"
               onSubmit={handleSubmit}
               noValidate
-              sx={{ mt: 1 }}>
+              sx={{ mt: 1 }}
+            >
               <TextField
                 margin="normal"
                 required
@@ -94,8 +103,13 @@ export default function Login() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}>
-                Submit
+                sx={{ mt: 3, mb: 2 }}
+              >
+                {loading ? (
+                  <Spinner animation="border" variant="light" />
+                ) : (
+                  "Submit"
+                )}
               </Button>
             </Box>
           </Box>

@@ -11,5 +11,11 @@ export default function Home() {
     }
   });
 
-  return <div>Welcome!!</div>;
+  return (
+    <>
+      <h1 className="container d-flex text-center align-items-center justify-content-center my-5 py-4">
+        Welcome to Home Page!!
+      </h1>
+    </>
+  );
 }

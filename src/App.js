@@ -7,11 +7,13 @@ import Activate from "./components/Activate";
 import Forgot from "./components/Forgot";
 import Reset from "./components/Reset";
 import "bootstrap/dist/css/bootstrap.css";
+import NavBar from "./components/NavBar";
 export const url = "https://password-reset-api.onrender.com";
 
 function App() {
   return (
     <div className="App">
+      <NavBar />
       <Routes>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
